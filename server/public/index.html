@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="./vendors/jquery.min.js"></script>
+		<script src="./scripts/client.js"></script>
+		<link rel="stylesheet" href="./vendors/bootstrap.css" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="./styles/style.css" />
+		<title>Calculator Exercise-stretch</title>
+	</head>
+	<body>
+		<header>
+			<div class="jumbotron container-fluid">
+				<h3 class="display-4 font-weight-bolder text-center">Calculator</h3>
+			</div>
+		</header>
+		<main>
+			<div id="calculator-container" class="container w-25 m-auto">
+				<div class="row">
+					<div class="col-12 bg-light rounded-top btn-block m-auto h-50 d-inline-block"">
+						<p id="calcDisplayTop" class="text-info text-right"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 bg-light rounded-bottom btn-block m-auto h-50 d-inline-block"">
+						<p id="calcDisplayBottom" class="text-info text-right">0</p>
+					</div>
+
+				</div>
+				<div class="row">
+					<div
+						class="btn-group btn-group-lg btn-block"
+						role="group"
+						aria-label="Calculator Buttons"
+					>
+						<button
+							id="clearButton"
+							type="button"
+							class="btn btn-secondary col-md-3 m-auto"
+						>
+							C
+						</button>
+						<button
+							id="deleteButton"
+							type="button"
+							class="btn btn-secondary col-md-3 m-auto"
+						>
+						<!-- <i class="material-icons">&#xe14a;</i> -->
+						Del
+						</button>
+						<button
+							id="parensButton"
+							type="button"
+							class="btn btn-secondary col-md-3 m-auto"
+						>
+							()
+						</button>
+						<button
+							type="button"
+							class="operatorButton btn btn-secondary col-md-3 m-auto"
+						>
+							/
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div
+						class="btn-group btn-group-lg btn-block"
+						role="group"
+						aria-label="Calculator Buttons"
+					>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							7
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							8
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							9
+						</button>
+						<button
+							type="button"
+							class="operatorButton btn btn-secondary col-md-3 m-auto"
+						>
+							*
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div
+						class="btn-group btn-group-lg btn-block"
+						role="group"
+						aria-label="Calculator Buttons"
+					>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							4
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							5
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							6
+						</button>
+						<button
+							type="button"
+							class="operatorButton btn btn-secondary col-md-3 m-auto"
+						>
+							-
+						</button>
+					</div>
+				</div>
+
+				<div class="row">
+					<div
+						class="btn-group btn-group-lg btn-block"
+						role="group"
+						aria-label="Calculator Buttons"
+					>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							1
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							2
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							3
+						</button>
+						<button
+							type="button"
+							class="operatorButton btn btn-secondary col-md-3 m-auto"
+						>
+							+
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div
+						class="btn-group btn-group-lg btn-block"
+						role="group"
+						aria-label="Calculator Buttons"
+					>
+						<button
+							type="button"
+							class="plusMinusButton btn btn-secondary col-md-3 m-auto"
+						>
+							+/-
+						</button>
+						<button
+							type="button"
+							class="numberButton btn btn-info col-md-3 m-auto"
+						>
+							0
+						</button>
+						<button
+							id="decimalButton"
+							type="button"
+							class="btn btn-secondary col-md-3 m-auto"
+						>
+							.
+						</button>
+						<button
+							id="equalsButton"
+							type="button"
+							class="btn btn-secondary col-md-3 m-auto"
+						>
+							=
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id="historyContainer" class="container p-3">
+				<ul id="calculatorHistory" class="list-group">
+					<li class="list-group-item bg-light">23 * 567</li>
+				</ul>
+			</div>
+		</main>
+	</body>
+</html>
