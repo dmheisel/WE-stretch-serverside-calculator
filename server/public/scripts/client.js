@@ -86,6 +86,10 @@ function handleEqualsClick() {
 		alert('Invalid format.');
 		return;
 	}
+	sendFormula();
+	formulaNums = [];
+	formulaOperators = [];
+	receiveAnswer();
 }
 
 function handleDecimalClick() {
@@ -162,5 +166,43 @@ function handleDeleteClick() {
 				$('#calcDisplayTop').text('_');
 			}
 		}
+	}
+}
+
+function sendFormula() {
+	let mathObj = {
+		mathNums: formulaNums,
+		mathOperators: formulaOperators
+	};
+	console.log('sending ', mathObj);
+	$.ajax({
+		method: 'POST',
+		url: '/calculate',
+		data: mathObj
+	}).then(response => console.log('server response: ', response));
+}
+function receiveAnswer() {
+	$.ajax({
+		method: 'GET',
+		url: '/calcHistory'
+	}).then(response => {
+		console.log(response);
+		renderHistory(response);
+	});
+}
+
+function renderHistory(history) {
+	$('#calculatorHistory').empty();
+	if (history.length > 0) {
+		let answer = history[history.length - 1].answer;
+		console.log(answer);
+		$('#calcDisplayTop').append('=');
+		$('#calcDisplayBottom').text(answer);
+	}
+	for (let i = history.length - 1; i >= 0; i--) {
+		let htmlText = $(
+			`<li class="list-group-item bg-light">${history[i].equation}</li>`
+		);
+		$('#calculatorHistory').append(htmlText);
 	}
 }
