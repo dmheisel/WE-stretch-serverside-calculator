@@ -236,6 +236,7 @@ function receiveHistory() {
 		if (equation.length > 0) {
 			renderHistory(response);
 		}
+		equation = [];
 	});
 }
 
