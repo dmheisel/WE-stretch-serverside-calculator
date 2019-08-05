@@ -233,9 +233,7 @@ function receiveHistory() {
 		url: '/calcHistory'
 	}).then(response => {
 		console.log(response);
-		if (equation.length > 0) {
-			renderHistory(response);
-		}
+		renderHistory(response);
 		equation = [];
 	});
 }
