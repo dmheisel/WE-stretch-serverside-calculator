@@ -18,11 +18,8 @@ let calculatorHistory = [];
 
 app.post('/calculate', (req, res) => {
 	let mathObj = req.body;
-	console.log(mathObj);
 	mathObj.answer = doMath(mathObj);
 	// mathObj.equation = parseEquation(mathObj);
-	console.log(mathObj);
-
 	//uses doMath module to add a property to the mathObj with the answer
 
 	calculatorHistory.push(mathObj);

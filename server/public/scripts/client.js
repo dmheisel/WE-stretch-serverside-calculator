@@ -241,9 +241,9 @@ function renderHistory(history) {
 	}
 	for (let i = history.length - 1; i >= 0; i--) {
 		let htmlText = $(
-			`<button class="historyItem dropdown-item p-0 m-0" type="button">${history[
-				i
-			].equation.join('')}</button>`
+			`<button class="historyItem dropdown-item p-0 m-0" type="button">
+			${history[i].equation.join('')}
+			</button>`
 		);
 		htmlText.data('object', history[i]);
 		$('#calculatorHistory').append(htmlText);
