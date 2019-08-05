@@ -36,3 +36,8 @@ app.get('/calcHistory', (req, res) => {
 	//sends entire calculator history to append to DOM
 	res.send(calculatorHistory);
 });
+
+app.delete('/clearMemory', (req, res) => {
+	calculatorHistory = [];
+	res.sendStatus(201);
+});
