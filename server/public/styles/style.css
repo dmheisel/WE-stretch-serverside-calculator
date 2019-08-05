@@ -1,3 +1,18 @@
 .row {
 	max-width: 200px;
 }
+
+body {
+	background-image: url('../images/desktop.jpeg');
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-position: top;
+}
+
+.jumbotron {
+	opacity: 0.5;
+}
+
+#calculator-container {
+	max-width: 200px;
+}
