@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const doMath = require('./modules/doMath');
+
 const parseEquation = require('./modules/parseEquation');
 const PORT = 5000;
 
@@ -19,7 +20,7 @@ app.post('/calculate', (req, res) => {
 	let mathObj = req.body;
 	console.log(mathObj);
 	mathObj.answer = doMath(mathObj);
-	mathObj.equation = parseEquation(mathObj);
+	// mathObj.equation = parseEquation(mathObj);
 	console.log(mathObj);
 
 	//uses doMath module to add a property to the mathObj with the answer

@@ -3,8 +3,8 @@ console.log('js sourced');
 $(document).ready(handleReady);
 // let currentIndex = 0;
 let workingNum = [];
-let formulaNums = [];
-let formulaOperators = [];
+let equation = [];
+let operators = ['+', '-', '*', '/'];
 
 function handleReady() {
 	console.log('jquery sourced');
@@ -23,9 +23,9 @@ function handleNumberClick() {
 	let entry = $(this)
 		.text()
 		.trim();
-	console.log(entry, ' pushed');
-	if (workingNum.length === 0 && formulaNums.length === 0) {
-		$('#calcDisplayBottom').text('0');
+	console.log(entry, ' pushed'); // removes extra white space
+	if (workingNum.length === 0 && equation.length === 0) {
+		$('#calcDisplayBottom').text('');
 		$('#calcDisplayTop').text('0');
 	}
 	workingNum.push(entry);
@@ -47,9 +47,10 @@ function handleOperatorClick() {
 		console.log('adding number ', workingNum, ' to list');
 		if (workingNum[workingNum.length - 1] === '.') {
 			$('#calcDisplayBottom').append('0');
-			workingNum.push('0');
+			workingNum.push('0'); // displays number ending in '.' as '.0'
 		}
-		formulaNums.push(workingNum.join(''));
+		equation.push(workingNum.join('')); //joins working num array into string,
+		//adds the string into the equation array
 		workingNum = []; // resets working number
 
 		if ($('#calcDisplayTop').text() === '0') {
@@ -59,29 +60,26 @@ function handleOperatorClick() {
 		if ($('#calcDisplayBottom').text() !== '0') {
 			$('#calcDisplayTop').append($('#calcDisplayBottom').text());
 			$('#calcDisplayBottom').text('0');
-		}
-		formulaOperators.push(entry); //adds current operator to formula
-		$('#calcDisplayTop').append(entry);
-	} else if (formulaOperators.length > 0) {
-		formulaOperators[formulaOperators.length - 1] = entry;
-		console.log(
-			'operator changed to ',
-			entry,
-			'full list is ',
-			formulaOperators
-		);
+		} // moves text from bottom display to top and resets bottom to 0
+
+		equation.push(entry); //adds current operator to formula
+		$('#calcDisplayTop').append(entry); // adds operator to top display
+	} else if (operators.includes(equation[equation.length - 1])) {
+		//if the last entry into the equation is an operator
+		equation[equation.length - 1] = entry; // changes last operator to new operator
+		console.log('operator changed to ', entry, 'equation is now ', equation);
 		$('#calcDisplayTop').text(
 			$('#calcDisplayTop')
 				.text()
 				.slice(0, -1)
 		);
-		$('#calcDisplayTop').append(entry);
+		$('#calcDisplayTop').append(entry); //changes top display for  new operator
 	}
 }
 
 function handleEqualsClick() {
 	if (workingNum.length > 0) {
-		formulaNums.push(workingNum.join(''));
+		equation.push(workingNum.join(''));
 		if ($('#calcDisplayTop').text() === '0') {
 			$('#calcDisplayTop').text('');
 		}
@@ -89,17 +87,16 @@ function handleEqualsClick() {
 		$('#calcDisplayBottom').text('0');
 		workingNum = [];
 	}
-	if (formulaOperators.length === 0) {
-		formulaNums = [];
-		return;
-	}
-	if (formulaNums.length === formulaOperators.length) {
+	// if (formulaOperators.length === 0) {
+	// 	equation = [];
+	// 	return;
+	// }
+	if (operators.includes(equation[equation.length - 1])) {
 		alert('Invalid format.');
 		return;
 	}
 	sendFormula();
-	formulaNums = [];
-	formulaOperators = [];
+	equation = [];
 	receiveHistory();
 }
 
@@ -109,17 +106,13 @@ function handleDecimalClick() {
 		let entry = $(this)
 			.text()
 			.trim();
+		//trims white space from character
 		if (workingNum.length === 0) {
 			workingNum.push('0');
-			if ($('#calcDisplayBottom').text() === '0') {
-				$('#calcDisplayBottom').text('');
-			}
-			$('#calcDisplayBottom').append('0');
+			// if first entry of num is decimal, append 0 to start
+			$('#calcDisplayBottom').text('0');
 		}
 		workingNum.push(entry);
-		if ($('#calcDisplayBottom').text() === '0') {
-			$('#calcDisplayBottom').text('');
-		}
 		$('#calcDisplayBottom').append(entry);
 	}
 }
@@ -128,12 +121,12 @@ function handleClearClick() {
 	$('#calcDisplayBottom').text('0');
 	$('#calcDisplayTop').text('0');
 	workingNum = [];
-	formulaNums = [];
+	equation = [];
 	formulaOperators = [];
 }
 
 function handleDeleteClick() {
-	if ($('#calcDisplayBottom').text() !== '0') {
+	if ($('#calcDisplayBottom').text().length > 0) {
 		//handles deletion of immediate working number (num still in bottom display)
 		workingNum.pop();
 		$('#calcDisplayBottom').text(
@@ -145,20 +138,17 @@ function handleDeleteClick() {
 			$('#calcDisplayBottom').text('0'); // ensures bottom text will have blank 0
 		}
 	} else {
-		//checks if last item in equation is operator and removes that from array
-		let equation = $('#calcDisplayTop').text();
-		let operators = ['/', '*', '+', '-'];
-
 		if (operators.includes(equation[equation.length - 1])) {
-			formulaOperators.pop();
+			//if last item in equation is an operator
+			equation.pop();
 			$('#calcDisplayTop').text(
 				$('#calcDisplayTop')
 					.text()
 					.slice(0, -1)
 			);
-		} else if (workingNum.length === 0 && formulaNums.length > 0) {
+		} else if (workingNum.length === 0 && equation.length > 0) {
 			// if no working number is currently queued up, makes last formula number new working number
-			workingNum = formulaNums.pop().split('');
+			workingNum = equation.pop().split('');
 			workingNum.pop();
 			$('#calcDisplayTop').text(
 				$('#calcDisplayTop')
@@ -201,8 +191,8 @@ function handleReturnHistoryClick() {
 
 function sendFormula() {
 	let mathObj = {
-		mathNums: formulaNums,
-		mathOperators: formulaOperators
+		equation: equation
+		// mathOperators: formulaOperators
 	};
 	console.log('sending ', mathObj);
 	$.ajax({
@@ -236,9 +226,9 @@ function renderHistory(history) {
 	}
 	for (let i = history.length - 1; i >= 0; i--) {
 		let htmlText = $(
-			`<button class="historyItem dropdown-item p-0 m-0" type="button">${
-				history[i].equation
-			}</button>`
+			`<button class="historyItem dropdown-item p-0 m-0" type="button">${history[
+				i
+			].equation.join('')}</button>`
 		);
 		htmlText.data('object', history[i]);
 		$('#calculatorHistory').append(htmlText);
