@@ -5,9 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<script src="./vendors/jquery.min.js"></script>
+		<script src="./vendors/bootstrap.bundle.min.js"></script>
 		<script src="./scripts/client.js"></script>
 		<link rel="stylesheet" href="./vendors/bootstrap.css" />
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="./styles/style.css" />
 		<title>Calculator Exercise-stretch</title>
 	</head>
@@ -20,14 +20,14 @@
 		<main>
 			<div id="calculator-container" class="container w-25 m-auto">
 				<div class="row">
-					<div class="col-12 bg-light rounded-top btn-block m-auto h-50 d-inline-block"">
-						<p id="calcDisplayTop" class="text-info text-right">_</p>
+					<button id="calcDisplayTop" class="col-12 btn btn-light dropdown-toggle btn-block m-auto text-muted text-right" type="button" data-toggle="dropdown">0</button>
+					<div id="calculatorHistory" class="dropdown-menu p-0 m-0">
+						<!-- jQuery to append additional dropdown-buttons here -->
+						<!-- <button class="dropdown-item p-0 m-0" type="button">24*3</button> -->
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-12 bg-light rounded-bottom btn-block m-auto h-50 d-inline-block"">
-						<p id="calcDisplayBottom" class="text-info text-right">_</p>
-					</div>
+					<button id="calcDisplayBottom" class="col-12 btn btn-light btn-block m-auto text-right" type="button">0</button>
 
 				</div>
 				<div class="row">
@@ -52,11 +52,11 @@
 						&#9003
 						</button>
 						<button
-							id="parensButton"
+							id="clearMemoryButton"
 							type="button"
 							class="btn btn-secondary col-md-3 m-auto"
 						>
-							()
+							M-
 						</button>
 						<button
 							type="button"
@@ -197,11 +197,6 @@
 						</button>
 					</div>
 				</div>
-			</div>
-			<div id="historyContainer" class="container p-3">
-				<ul id="calculatorHistory" class="list-group">
-					<li class="list-group-item bg-light">23 * 567</li>
-				</ul>
 			</div>
 		</main>
 	</body>
