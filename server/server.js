@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const doMath = require('./modules/doMath');
-
-const parseEquation = require('./modules/parseEquation');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
